@@ -19,7 +19,7 @@ if (!isset(
 
 //check if email is already registered
 
-include("./dbConfig.php");
+include("../dbConfig.php");
 
 $email = $_POST['email'];
 $name = $_POST['name'];
