@@ -1,0 +1,36 @@
+.title{
+    font-size: 5em;
+    text-align: center;
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+}
+
+.input{
+    width: 20rem;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    border: 1px solid #333;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.button{
+    width: 20rem;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+
+    margin-bottom: 10px;
+    font-size: 16px;
+    color:white;
+    background-color:orange;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
