@@ -9,7 +9,7 @@ function RegisterPage() {
 
     return (
         <form onSubmit={onSubmit}>
-            <div style={{ "display": 'flex', flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "25px" }}>
+            <div style={{ "display": 'flex', height: "100vh", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "25px" }}>
 
                 <h1>Register your details</h1>
                 <input required placeholder='Enter your name' type='text' className='input'></input>
