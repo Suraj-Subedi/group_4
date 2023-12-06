@@ -1,10 +1,34 @@
-import React from 'react'
+import React, {
+    useState
+
+} from 'react'
 import { Link } from 'react-router-dom';
 
 function RegisterPage() {
-    const onSubmit = (e) => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+
+    const onSubmit = async (e) => {
         e.preventDefault();
-        console.log("onSubmit")
+        try {
+
+            var formData = new FormData();
+            formData.append("email", email);
+            formData.append("name", name);
+            formData.append("password", password);
+            var response = await fetch('http://localhost/react_api/auth/register.php', {
+                method: 'POST',
+                body: formData,
+            });
+
+            console.log(response.body);
+
+        } catch (error) {
+            console.log(error)
+
+        }
     }
 
     return (
@@ -12,13 +36,13 @@ function RegisterPage() {
             <div style={{ "display": 'flex', height: "100vh", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "25px" }}>
 
                 <h1>Register your details</h1>
-                <input required placeholder='Enter your name' type='text' className='input'></input>
-                <input required placeholder='Enter your email' type='email' className='input'></input>
-                <input required placeholder='Enter your password' type='password' className='input'></input>
+                <input value={name} onChange={(v) => setName(v.target.value)} required placeholder='Enter your name' type='text' className='input'></input>
+                <input value={email} onChange={(v) => setEmail(v.target.value)} required placeholder='Enter your email' type='email' className='input'></input>
+                <input value={password} onChange={(v) => setPassword(v.target.value)} required placeholder='Enter your password' type='password' className='input'></input>
                 <button type='submit' className='button color bg-primary'>Register</button>
                 <div style={{ "display": "flex", "gap": "10px" }}>
                     <span>Already have an account? </span>
-                    <Link to={"/login"}>       <a style={{ "color": "blue", "textDecoration": "underline", "cursor": "pointer" }} >Login</a></Link>
+                    <Link to={"/login"}>       <span href='/login' style={{ "color": "blue", "textDecoration": "underline", "cursor": "pointer" }} >Login</span></Link>
 
                 </div>
 

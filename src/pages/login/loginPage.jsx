@@ -5,20 +5,22 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 
 function LoginPage() {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
 
     const onSubmit = async (e) => {
 
         e.preventDefault();
         try {
+
+            var formData = new FormData();
+            formData.append("email", email);
+            formData.append("password", password);
             var response = await fetch('http://localhost/react_api/auth/login.php', {
                 method: 'POST',
-                body: {
-                    email: email,
-                    password: password
-
-                }
+                body: formData,
             });
 
             console.log(response.body);
@@ -42,7 +44,7 @@ function LoginPage() {
                 <div style={{ "display": "flex", "gap": "10px" }}>
                     <span>Don't have an account? </span>
                     <Link to={"/register"}>
-                        <a style={{ "color": "blue", "textDecoration": "underline", "cursor": "pointer" }} >Register</a>
+                        <span style={{ "color": "blue", "textDecoration": "underline", "cursor": "pointer" }} >Register</span>
                     </Link>
                 </div>
 
