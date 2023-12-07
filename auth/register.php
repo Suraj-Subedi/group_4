@@ -1,5 +1,5 @@
 <?php
-
+include("../dbConfig.php");
 //email, name and password check
 
 if (!isset(
@@ -19,7 +19,7 @@ if (!isset(
 
 //check if email is already registered
 
-include("../dbConfig.php");
+
 
 $email = $_POST['email'];
 $name = $_POST['name'];
