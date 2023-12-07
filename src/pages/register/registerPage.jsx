@@ -3,8 +3,12 @@ import React, {
 
 } from 'react'
 import { Link } from 'react-router-dom';
+import { ipAddress } from '../../constants';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -18,12 +22,22 @@ function RegisterPage() {
             formData.append("email", email);
             formData.append("name", name);
             formData.append("password", password);
-            var response = await fetch('http://localhost/react_api/auth/register.php', {
+            var response = await fetch("http://localhost/react_api/auth/register.php", {
                 method: 'POST',
                 body: formData,
             });
 
-            console.log(response.body);
+            var data = await response.json();
+
+            if (data.success) {
+                toast.success(data.message);
+                navigate("/login");
+
+
+            } else {
+                toast.error(data.message);
+
+            }
 
         } catch (error) {
             console.log(error)

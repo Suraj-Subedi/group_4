@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 function HomePage() {
+    const navigate = useNavigate();
 
     const [count, setCount] = useState(1);
     const [photoUrl, setPhotoUrl] = useState("");
@@ -21,6 +24,11 @@ function HomePage() {
             <button onClick={() => {
                 setPhotoUrl("https://picsum.photos/200/300")
             }}>Upload new Photo</button>
+            <button onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/login");
+                toast.success("Logged out successfully")
+            }}>Logout</button>
         </>
     )
 }

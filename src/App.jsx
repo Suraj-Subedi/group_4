@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import HomePage from "./pages/home/home";
 import { useEffect, useState } from "react";
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
 
   return (
     <>
-
+      <Toaster />
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />

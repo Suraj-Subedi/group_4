@@ -1,10 +1,13 @@
 import React from 'react'
 import '../../App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+
 
 function LoginPage() {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -23,7 +26,19 @@ function LoginPage() {
                 body: formData,
             });
 
-            console.log(response.body);
+            var data = await response.json();
+
+            console.log(data);
+
+            if (data.success) {
+                toast.success(data.message);
+                localStorage.setItem("token", data.token);
+                navigate("/home");
+            } else {
+                toast.error(
+
+                    data.message);
+            }
 
         } catch (error) {
             console.log(error)
