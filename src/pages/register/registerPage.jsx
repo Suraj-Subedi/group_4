@@ -12,11 +12,16 @@ function RegisterPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
+            if (password !== confirmPassword) {
+                toast.error("Passwords do not match");
+                return;
+            }
 
             var formData = new FormData();
             formData.append("email", email);
@@ -53,6 +58,7 @@ function RegisterPage() {
                 <input value={name} onChange={(v) => setName(v.target.value)} required placeholder='Enter your name' type='text' className='input'></input>
                 <input value={email} onChange={(v) => setEmail(v.target.value)} required placeholder='Enter your email' type='email' className='input'></input>
                 <input value={password} onChange={(v) => setPassword(v.target.value)} required placeholder='Enter your password' type='password' className='input'></input>
+                <input value={confirmPassword} onChange={(v) => setConfirmPassword(v.target.value)} required placeholder='Re enter your password' type='password' className='input'></input>
                 <button type='submit' className='button color bg-primary'>Register</button>
                 <div style={{ "display": "flex", "gap": "10px" }}>
                     <span>Already have an account? </span>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import Navbar from '../../components/navbar/navbar';
 
 function HomePage() {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ function HomePage() {
 
     return (
         <>
-            <div style={{ "fontSize": "10rem", "display": "flex", "justifyContent": "center", }}>{count}</div>
+            {/* <div style={{ "fontSize": "10rem", "display": "flex", "justifyContent": "center", }}>{count}</div>
             <button onClick={() => {
                 setCount(1)
             }}>Click me</button>
@@ -28,7 +29,8 @@ function HomePage() {
                 localStorage.removeItem("token");
                 navigate("/login");
                 toast.success("Logged out successfully")
-            }}>Logout</button>
+            }}>Logout</button> */}
+            <Navbar name={"suraj"} />
         </>
     )
 }
