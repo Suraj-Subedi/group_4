@@ -2,8 +2,9 @@ import React from "react";
 import "./navbar.css";
 import {FaCartShopping} from "react-icons/fa6";
 import {MdLogout} from "react-icons/md";
-function Navbar(name) {
-  console.log(name);
+import MyButton from "../mybutton";
+function Navbar({cartCount}) {
+  // console.log(name);
   return (
     <div className="navHead bg-primary">
       <p className="logo"> Mero Dokan</p>
@@ -13,7 +14,12 @@ function Navbar(name) {
         <span className="cat">Kids</span>
       </div>
       <div className="iconHead">
-        <FaCartShopping size={22} />
+        <div>
+          {" "}
+          <FaCartShopping size={22} />
+          <span className="cartCount">{cartCount}</span>
+        </div>
+
         <MdLogout
           size={22}
           onClick={() => {

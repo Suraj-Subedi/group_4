@@ -29,7 +29,7 @@
     margin-bottom: 10px;
     font-size: 16px;
     color:white;
-    background-color:orange;
+    /* background-color:orange; */
     outline: none;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
