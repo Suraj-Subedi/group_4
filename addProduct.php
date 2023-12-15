@@ -3,25 +3,25 @@ include("./dbConfig.php");
 include "./helpers/authHelper.php";
 
 
-if (!isset($_POST['token'])) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Token not found!"
-    ]);
-    die();
-}
+// if (!isset($_POST['token'])) {
+//     echo json_encode([
+//         "success" => false,
+//         "message" => "Token not found!"
+//     ]);
+//     die();
+// }
 
 
-$token = $_POST['token'];
-$isAdmin = isAdmin($token);
+// $token = $_POST['token'];
+// $isAdmin = isAdmin($token);
 
-if (!$isAdmin) {
-    echo json_encode([
-        "success" => false,
-        "message" => "You are not authorized to perform this action!"
-    ]);
-    die();
-}
+// if (!$isAdmin) {
+//     echo json_encode([
+//         "success" => false,
+//         "message" => "You are not authorized to perform this action!"
+//     ]);
+//     die();
+// }
 
 
 
