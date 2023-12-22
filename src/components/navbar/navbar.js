@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./navbar.css";
 import {FaCartShopping} from "react-icons/fa6";
 import {MdLogout} from "react-icons/md";
 import MyButton from "../mybutton";
-function Navbar({cartCount}) {
+import CartContext from "../../context/cartContext";
+function Navbar() {
+  const {cart} = useContext(CartContext);
+  console.log(cart);
+
   // console.log(name);
   return (
     <div className="navHead bg-primary">
@@ -17,7 +21,7 @@ function Navbar({cartCount}) {
         <div>
           {" "}
           <FaCartShopping size={22} />
-          <span className="cartCount">{cartCount}</span>
+          <span className="cartCount">{cart.length}</span>
         </div>
 
         <MdLogout

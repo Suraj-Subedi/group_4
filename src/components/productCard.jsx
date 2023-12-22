@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import MyButton from './mybutton'
+import CartContext from '../context/cartContext'
+import { toast } from 'react-hot-toast'
 
 function ProductCard({ product }) {
+    const { cart, setCart } = useContext(CartContext)
     return (
         <div style={{
             display: "flex",
@@ -22,7 +25,24 @@ function ProductCard({ product }) {
                 <h5>{product.description}</h5>
                 <h3>Rs. {product.price}</h3>
                 <MyButton title={"Add to Cart"} onClick={() => {
-                    // setCartNumber(cartNumber + 1)
+
+                    var alreadyInCart = false;
+                    cart.forEach((item) => {
+                        if (item.product_id === product.product_id) {
+                            alreadyInCart = true;
+                        }
+                    })
+
+                    if (alreadyInCart) {
+                        toast.error("Product already in cart")
+                    } else {
+
+                        setCart([...cart, product])
+                        localStorage.setItem("cart", JSON.stringify([...cart, product]))
+                        toast.success("Product added to cart")
+
+                    }
+
                 }} />
             </div>
         </div>

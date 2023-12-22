@@ -14,17 +14,22 @@ function HomePage() {
     const [photoUrl, setPhotoUrl] = useState("");
 
 
-    useEffect(async () => {
-        var response = await fetch('http://localhost/react_api/getProducts.php', {
-            method: 'GET',
+    useEffect(() => {
+        const fetchProducts = async () => {
+            var response = await fetch('http://localhost/react_api/getProducts.php', {
+                method: 'GET',
 
-        });
-        var data = await response.json();
-        if (data.success) {
-            setProducts(data.products);
-        } else {
-            toast.error(data.message);
+            });
+            var data = await response.json();
+            if (data.success) {
+                setProducts(data.products);
+            } else {
+                toast.error(data.message);
+            }
         }
+        fetchProducts();
+
+
     }, []);
 
 
@@ -46,7 +51,7 @@ function HomePage() {
                 navigate("/login");
                 toast.success("Logged out successfully")
             }}>Logout</button> */}
-            <Navbar cartCount={cartNumber} />
+            <Navbar />
             {/* <center style={{
 
             }}> */}
