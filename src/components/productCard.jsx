@@ -37,8 +37,8 @@ function ProductCard({ product }) {
                         toast.error("Product already in cart")
                     } else {
 
-                        setCart([...cart, product])
-                        localStorage.setItem("cart", JSON.stringify([...cart, product]))
+                        setCart([...cart, { product, quantity: 1 }])
+                        localStorage.setItem("cart", JSON.stringify(cart))
                         toast.success("Product added to cart")
 
                     }

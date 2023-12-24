@@ -8,6 +8,7 @@ import HomePage from "./pages/home/home";
 import { useEffect, useState } from "react";
 import { Toaster } from 'react-hot-toast';
 import CartContext from "./context/cartContext";
+import CartPage from "./pages/cart/cart";
 
 
 
@@ -20,10 +21,11 @@ function App() {
     if (token === null) {
       navigate("/login");
       // window.location.href = "/login"
-    } else {
-      navigate("/home");
-      // window.location.href = "/home"
     }
+    // else {
+    //   navigate("/home");
+    //   // window.location.href = "/home"
+    // }
   }, []);
 
 
@@ -32,10 +34,11 @@ function App() {
       <CartContext.Provider value={{ cart, setCart }}>
         <Toaster />
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="*" element={<LoginPage />} />
         </Routes>
       </CartContext.Provider>
