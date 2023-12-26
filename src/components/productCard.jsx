@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast'
 
 function ProductCard({ product }) {
     const { cart, setCart } = useContext(CartContext)
+    const [quantity, setQuantity] = React.useState(1)
     return (
         <div style={{
             display: "flex",
@@ -24,6 +25,18 @@ function ProductCard({ product }) {
                 <h1>{product.title}</h1>
                 <h5>{product.description}</h5>
                 <h3>Rs. {product.price}</h3>
+                <div style={{ display: "flex", "gap": "10px" }}> <button onClick={() => {
+                    setQuantity(quantity + 1)
+                }}>+</button>
+                    <h3>{quantity}</h3>
+                    <button onClick={() => {
+                        if (quantity === 1) {
+                            toast.error("Quantity cannot be less than 1");
+                            return;
+                        }
+                        setQuantity(quantity - 1)
+                    }}>-</button></div>
+
                 <MyButton title={"Add to Cart"} onClick={() => {
 
                     var alreadyInCart = false;
@@ -37,7 +50,7 @@ function ProductCard({ product }) {
                         toast.error("Product already in cart")
                     } else {
 
-                        setCart([...cart, { product, quantity: 1 }])
+                        setCart([...cart, { product, quantity: quantity }])
                         localStorage.setItem("cart", JSON.stringify(cart))
                         toast.success("Product added to cart")
 

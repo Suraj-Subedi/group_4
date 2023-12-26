@@ -1,26 +1,61 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import Navbar from "../../components/navbar/navbar";
 import CartContext from "../../context/cartContext";
 import ProductCard from "../../components/productCard";
 import "./cart.css";
 import {toast} from "react-hot-toast";
+import {useState} from "react";
 
 import {FiMinusCircle, FiPlusCircle} from "react-icons/fi";
 
 function CartPage() {
   const {cart} = useContext(CartContext);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    var total = 0;
+    cart.forEach((item) => {
+      total += item.product.price * item.quantity;
+    });
+    setTotal(total);
+  }, [cart]);
+
   return (
     <div>
       <Navbar />
-      <span
-        style={{justifyContent: "center", display: "flex", fontSize: "2rem"}}
-      >
-        Your Cart:
-      </span>
-      <div className="cartBox">
-        {cart.map((item) => {
-          return <CartCard cartItem={item} />;
-        })}
+      <div style={{display: "flex", justifyContent: "space-evenly"}}>
+        <div>
+          {" "}
+          <span
+            style={{
+              justifyContent: "",
+              display: "flex",
+              fontSize: "2rem",
+              padding: "10px",
+            }}
+          >
+            Your Cart:
+          </span>
+          <div className="cartBox">
+            {cart.map((item) => {
+              return <CartCard cartItem={item} />;
+            })}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "10px 10px",
+            fontSize: "1.25rem",
+          }}
+        >
+          <div>
+            {" "}
+            <span>Order Summary:</span>
+            <span>Total:Rs.{total}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
