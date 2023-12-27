@@ -14,23 +14,27 @@ function HomePage() {
     const [photoUrl, setPhotoUrl] = useState("");
 
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            var response = await fetch('http://localhost/react_api/getProducts.php', {
-                method: 'GET',
+    const fetchProducts = async () => {
+        var response = await fetch('http://localhost/react_api/getProducts.php', {
+            method: 'GET',
 
-            });
-            var data = await response.json();
-            if (data.success) {
-                setProducts(data.products);
-            } else {
-                toast.error(data.message);
-            }
+        });
+        var data = await response.json();
+        if (data.success) {
+            setProducts(data.products);
+        } else {
+            toast.error(data.message);
         }
+    }
+
+    useEffect(() => {
+
         fetchProducts();
 
 
     }, []);
+
+
 
 
 
@@ -51,7 +55,7 @@ function HomePage() {
                 navigate("/login");
                 toast.success("Logged out successfully")
             }}>Logout</button> */}
-            <Navbar />
+            <Navbar fetchProducts={fetchProducts} />
             {/* <center style={{
 
             }}> */}
@@ -72,10 +76,13 @@ function HomePage() {
             </center> */}
 
             <div style={{
+
                 display: "flex",
+                justifyContent: "center",
                 flexWrap: "wrap",
                 gap: "1rem",
                 padding: "1rem",
+                paddingTop: "100px",
 
             }}>
                 {

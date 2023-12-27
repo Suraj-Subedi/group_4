@@ -9,9 +9,13 @@ function ProductCard({ product }) {
     return (
         <div style={{
             display: "flex",
+            flexWrap: "wrap",
             alignItems: "center",
             justifyContent: "center",
+
             height: "85vh",
+
+
             gap: "1rem",
         }}>
             <div style={{
