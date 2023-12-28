@@ -21,17 +21,26 @@ function CartPage() {
   }, [cart]);
 
   return (
-    <div>
+    <div
+      style={{
+        paddingTop: "100px",
+        paddingBottom: "100px",
+      }}
+    >
       <Navbar />
-      <div style={{display: "flex", justifyContent: "space-evenly"}}>
+      <div
+        className="myCart"
+        style={{display: "flex", justifyContent: "space-evenly"}}
+      >
         <div>
           {" "}
           <span
             style={{
               justifyContent: "",
               display: "flex",
-              fontSize: "2rem",
+              fontSize: "1.5rem",
               padding: "10px",
+              fontWeight: "500",
             }}
           >
             Your Cart:
@@ -50,10 +59,32 @@ function CartPage() {
             fontSize: "1.25rem",
           }}
         >
-          <div>
+          <div className="summaryBoard">
             {" "}
-            <span>Order Summary:</span>
-            <span>Total:Rs.{total}</span>
+            <span className="title">Order Summary:</span>
+            <div className="head">
+              <span className="subtitle">SubTotal:</span>
+              <span className="value">Rs.{total}</span>
+            </div>
+            <div className="head">
+              <span className="subtitle">Delivery Charge:</span>
+              <span className="value">Rs.{100}</span>
+            </div>
+            <div className="head">
+              {" "}
+              <span className="subtitle">Grand Total:</span>
+              <span className="value">Rs.{total + 100}</span>
+            </div>
+            <div className="pay">
+              <span>Pay with</span>
+              <img
+                style={{
+                  height: "50px",
+                  width: "120px",
+                }}
+                src="https://web.khalti.com/static/img/logo1.png"
+              ></img>
+            </div>
           </div>
         </div>
       </div>
@@ -70,7 +101,7 @@ function CartCard({cartItem}) {
     <div className="cartCard">
       <img
         src={"http://localhost/react_api/" + product.image_url}
-        style={{width: "200px", height: "200px", objectFit: "cover"}}
+        style={{width: "200px", height: "100px", objectFit: "cover"}}
       />
       <div className="infoBox">
         <p>{product.title}</p>
@@ -78,6 +109,7 @@ function CartCard({cartItem}) {
       </div>
       <div className="btnBox">
         <FiMinusCircle
+          style={{color: "red", cursor: "pointer"}}
           onClick={() => {
             var newCart = cart;
             newCart.forEach((item) => {
@@ -97,6 +129,7 @@ function CartCard({cartItem}) {
         />
         <span>{quantity}</span>
         <FiPlusCircle
+          style={{color: "green", cursor: "pointer"}}
           size={30}
           onClick={() => {
             var newCart = cart;

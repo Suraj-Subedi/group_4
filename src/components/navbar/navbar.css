@@ -1,9 +1,9 @@
+
+
 .navHead{
     /* position:fixed; */
 display: flex;
-/* width: 100%; */
-
-    
+/* width: 100%; */  
     color:white;
 
     padding: 10px;
@@ -14,6 +14,8 @@ display: flex;
     font-size: 2rem;
     font-weight: bold;
 }
+
+
 
 .catHead{
     display: flex;
@@ -40,3 +42,19 @@ display: flex;
     margin-right: 50px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 480px) {
+    .navHead{
+      flex-direction: column;
+    }
+    .logo{
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .catHead{
+        display: none;
+    }
+
+}
+

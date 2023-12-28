@@ -9,9 +9,11 @@ import {MdAddBox} from "react-icons/md";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import {toast} from "react-hot-toast";
+import CartPage from "../../pages/cart/cart";
 function Navbar({fetchProducts}) {
   const {cart} = useContext(CartContext);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -55,6 +57,42 @@ function Navbar({fetchProducts}) {
   // console.log(name);
   return (
     <div className="fixed-top">
+      <Modal
+        className="test"
+        show={showLogoutModal}
+        onHide={() => {
+          setShowLogoutModal(false);
+        }}
+        fullscreen={"xl-down"}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="text-danger">Logout</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* <CartPage /> */}
+          <p>Are you sure you want to logout?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.href = "/login";
+            }}
+            variant="secondary"
+          >
+            Logout
+          </Button>
+
+          <Button
+            onClick={() => {
+              setShowLogoutModal(false);
+            }}
+            variant="primary"
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Modal show={showAddModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Product</Modal.Title>
@@ -159,8 +197,7 @@ function Navbar({fetchProducts}) {
           <MdLogout
             size={22}
             onClick={() => {
-              localStorage.removeItem("token");
-              window.location.href = "/login";
+              setShowLogoutModal(true);
             }}
           />
         </div>
