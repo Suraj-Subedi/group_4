@@ -1,7 +1,7 @@
 <?php
 include("./dbConfig.php");
 
-$sql = "select products.*,category.title as category from products join category on products.category_id =category.category_id";
+$sql = "select products.*,category.title as category from products join category on products.category_id =category.category_id order by product_id desc";
 
 $result = mysqli_query($CON, $sql);
 
