@@ -5,11 +5,13 @@ import ProductCard from "../../components/productCard";
 import "./cart.css";
 import {toast} from "react-hot-toast";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 import {FiMinusCircle, FiPlusCircle} from "react-icons/fi";
 
 function CartPage() {
-  const {cart} = useContext(CartContext);
+  const navigate = useNavigate();
+  const {cart, setCart} = useContext(CartContext);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -19,6 +21,32 @@ function CartPage() {
     });
     setTotal(total);
   }, [cart]);
+
+  async function makeOrder() {
+    try {
+      var formData = new FormData();
+      formData.append("token", localStorage.getItem("token"));
+      formData.append("total", total + 100);
+      formData.append("cart", JSON.stringify(cart));
+      var response = await fetch("http://localhost/react_api/makeOrder.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      var data = await response.json();
+
+      if (data.success) {
+        toast.success(data.message);
+        setCart([]);
+        localStorage.removeItem("cart");
+        navigate("/home");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div
@@ -75,14 +103,14 @@ function CartPage() {
               <span className="subtitle">Grand Total:</span>
               <span className="value">Rs.{total + 100}</span>
             </div>
-            <div className="pay">
+            <div onClick={makeOrder} className="pay">
               <span>Pay with</span>
               <img
                 style={{
                   height: "50px",
-                  width: "120px",
+                  width: "100px",
                 }}
-                src="https://web.khalti.com/static/img/logo1.png"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Khalti_Digital_Wallet_Logo.png.jpg/640px-Khalti_Digital_Wallet_Logo.png.jpg"
               ></img>
             </div>
           </div>
