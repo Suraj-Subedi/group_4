@@ -6,6 +6,7 @@ import "./cart.css";
 import {toast} from "react-hot-toast";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import KhaltiCheckout from "khalti-checkout-web";
 
 import {FiMinusCircle, FiPlusCircle} from "react-icons/fi";
 
@@ -36,10 +37,57 @@ function CartPage() {
       var data = await response.json();
 
       if (data.success) {
-        toast.success(data.message);
-        setCart([]);
-        localStorage.removeItem("cart");
-        navigate("/home");
+        var config = {
+          // replace the publicKey with yours
+          publicKey: "test_public_key_dde0878862604f24b2475a9806c833d2",
+          productIdentity: data.orderId.toString(),
+          productUrl: "http://localhost:3000/",
+          productName: `Mero Dokan order-${data.orderId}`,
+          paymentPreference: ["KHALTI"],
+          eventHandler: {
+            async onSuccess(payload) {
+              var formData = new FormData();
+              formData.append("token", localStorage.getItem("token"));
+              formData.append("amount", total + 100);
+              formData.append("orderId", payload.product_identity);
+              formData.append("status", "success");
+              formData.append("otherDetails", JSON.stringify(payload));
+
+              var response = await fetch(
+                "http://localhost/react_api/makePayment.php",
+                {
+                  method: "POST",
+                  body: formData,
+                }
+              );
+
+              var data = await response.json();
+
+              if (data.success) {
+                toast.success(data.message);
+                setCart([]);
+                localStorage.removeItem("cart");
+                navigate("/home");
+              } else {
+                toast.error(data.message);
+              }
+
+              //         toast.success(data.message);
+              // setCart([]);
+              // localStorage.removeItem("cart");
+              // navigate("/home");
+            },
+            onError(error) {
+              console.log(error);
+            },
+            onClose() {
+              console.log("widget is closing");
+            },
+          },
+        };
+
+        let checkout = new KhaltiCheckout(config);
+        checkout.show({amount: total + 100});
       } else {
         toast.error(data.message);
       }
