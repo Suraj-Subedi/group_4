@@ -3,27 +3,46 @@ import React, {
 
 } from 'react'
 import { Link } from 'react-router-dom';
+import { ipAddress } from '../../constants';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
+            if (password !== confirmPassword) {
+                toast.error("Passwords do not match");
+                return;
+            }
 
             var formData = new FormData();
             formData.append("email", email);
             formData.append("name", name);
             formData.append("password", password);
-            var response = await fetch('http://localhost/react_api/auth/register.php', {
+            var response = await fetch("http://localhost/react_api/auth/register.php", {
                 method: 'POST',
                 body: formData,
             });
 
-            console.log(response.body);
+            var data = await response.json();
+
+            if (data.success) {
+                toast.success(data.message);
+                navigate("/login");
+
+
+            } else {
+                toast.error(data.message);
+
+            }
 
         } catch (error) {
             console.log(error)
@@ -39,6 +58,7 @@ function RegisterPage() {
                 <input value={name} onChange={(v) => setName(v.target.value)} required placeholder='Enter your name' type='text' className='input'></input>
                 <input value={email} onChange={(v) => setEmail(v.target.value)} required placeholder='Enter your email' type='email' className='input'></input>
                 <input value={password} onChange={(v) => setPassword(v.target.value)} required placeholder='Enter your password' type='password' className='input'></input>
+                <input value={confirmPassword} onChange={(v) => setConfirmPassword(v.target.value)} required placeholder='Re enter your password' type='password' className='input'></input>
                 <button type='submit' className='button color bg-primary'>Register</button>
                 <div style={{ "display": "flex", "gap": "10px" }}>
                     <span>Already have an account? </span>
